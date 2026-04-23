@@ -1,13 +1,7 @@
-import CurrencyCard from "./CurrencyCard";
 import ResultAlert from "./ResultAlert";
 import DenominationGrid from "./DenominationGrid";
 
 function ResultsPanel({
-  selectedCurrency,
-  setSelectedCurrency,
-  currencies,
-  convertedAmount,
-  rateLoading,
   isOwed,
   changeDue,
   twenties,
@@ -22,14 +16,6 @@ function ResultsPanel({
 }) {
   return (
     <div className="col-md-8">
-      <CurrencyCard
-        selectedCurrency={selectedCurrency}
-        setSelectedCurrency={setSelectedCurrency}
-        currencies={currencies}
-        convertedAmount={convertedAmount}
-        rateLoading={rateLoading}
-      />
-
       <ResultAlert isOwed={isOwed} changeDue={changeDue} />
 
       <DenominationGrid

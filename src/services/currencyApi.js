@@ -5,7 +5,7 @@ export async function fetchCurrencies() {
   return Object.entries(data)
     .map(([code, info]) => ({
       code,
-      name: info.name,
+      name: info?.name || code,
     }))
     .sort((a, b) => a.code.localeCompare(b.code));
 }
@@ -18,5 +18,5 @@ export async function fetchExchangeRate(fromCurrency, toCurrency) {
   );
   const data = await response.json();
 
-  return data.rate;
+  return Number(data?.rate) || 1;
 }
