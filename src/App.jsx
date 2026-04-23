@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { fetchCurrencies, fetchExchangeRate } from "./services/currencyApi";    
 import twentiesImg from "./assets/react.svg";
 import Hero from "./components/Hero";
 import CalculatorForm from "./components/CalculatorForm";
@@ -19,6 +20,11 @@ function App() {
   const [pennies, setPennies] = useState(0);
   const [isOwed, setIsOwed] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState("USD");
+  const [currencies, setCurrencies] = useState([
+    { code: "USD", name: "US Dollar" },
+  ]);
+  const [exchangeRate, setExchangeRate] = useState(1);
+  const [rateLoading, setRateLoading] = useState(false);
 
   const resetCalculator = () => {
     setAmountDue("");
@@ -49,7 +55,36 @@ function App() {
     setNickels(result.nickels);
     setPennies(result.pennies);
   };
+useEffect(() => {
+  const loadCurrencies = async () => {
+    try {
+      const currencyList = await fetchCurrencies();
+      setCurrencies(currencyList);
+    } catch (error) {
+      console.error("Error fetching currencies:", error);
+    }
+  };
 
+  loadCurrencies();
+}, []);
+
+useEffect(() => {
+  const loadExchangeRate = async () => {
+    try {
+      setRateLoading(true);
+      const rate = await fetchExchangeRate("USD", selectedCurrency);
+      setExchangeRate(rate);
+    } catch (error) {
+      console.error("Error fetching exchange rate:", error);
+      setExchangeRate(1);
+    } finally {
+      setRateLoading(false);
+    }
+  };
+
+  loadExchangeRate();
+}, [selectedCurrency]);
+const convertedAmount = (changeDue * exchangeRate).toFixed(2);
   return (
     <div className="container py-5">
       <Hero />
@@ -69,6 +104,9 @@ function App() {
         <ResultsPanel
           selectedCurrency={selectedCurrency}
           setSelectedCurrency={setSelectedCurrency}
+          currencies={currencies}
+          convertedAmount={convertedAmount}
+          rateLoading={rateLoading} 
           isOwed={isOwed}
           changeDue={changeDue}
           twenties={twenties}

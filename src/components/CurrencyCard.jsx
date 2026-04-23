@@ -1,4 +1,10 @@
-function CurrencyCard({ selectedCurrency, setSelectedCurrency }) {
+function CurrencyCard({
+  selectedCurrency,
+  setSelectedCurrency,
+  currencies,
+  convertedAmount,
+  rateLoading,
+}) {
   return (
     <div className="card mb-4 currency-card">
       <div className="card-body">
@@ -8,6 +14,18 @@ function CurrencyCard({ selectedCurrency, setSelectedCurrency }) {
             <p className="mb-0 text-muted">
               Selected currency: <strong>{selectedCurrency}</strong>
             </p>
+            <p className="mb-0 text-muted mt-2">
+              {rateLoading ? (
+                <>Loading live exchange rate...</>
+              ) : (
+                <>
+                  Preview converted amount:{" "}
+                  <strong>
+                    {convertedAmount} {selectedCurrency}
+                  </strong>
+                </>
+              )}
+            </p>
           </div>
 
           <div className="mt-3 mt-md-0">
@@ -16,10 +34,11 @@ function CurrencyCard({ selectedCurrency, setSelectedCurrency }) {
               value={selectedCurrency}
               onChange={(event) => setSelectedCurrency(event.target.value)}
             >
-              <option value="USD">USD - US Dollar</option>
-              <option value="EUR">EUR - Euro</option>
-              <option value="MXN">MXN - Mexican Peso</option>
-              <option value="IRR">IRR - Iranian Rial</option>
+              {currencies.map((currency) => (
+                <option key={currency.code} value={currency.code}>
+                  {currency.code} - {currency.name}
+                </option>
+              ))}
             </select>
           </div>
         </div>
