@@ -3,7 +3,7 @@ body {
   min-height: 100vh;
   font-family: Arial, sans-serif;
   background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
-  color: #111827;
+  color: #111827fa;
 }
 
 #root {
@@ -16,7 +16,7 @@ body {
 
 h1 {
   font-weight: 600;
-  color: white;
+  color: rgb(231, 221, 221);
 }
 
 p.text-center {
@@ -26,13 +26,14 @@ p.text-center {
 .card {
   border: none;
   border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 10px 30px rgba(49, 48, 48, 0.18);
 }
 
 .card-header {
   background: linear-gradient(135deg, #2563eb, #1d4ed8);
   color: white;
   border-bottom: none;
+  padding: 2.9rem 1.25rem;
   border-top-left-radius: 18px !important;
   border-top-right-radius: 18px !important;
 }
@@ -79,7 +80,7 @@ p.text-center {
 
 .alert-success {
   background: #dcfce7;
-  color: #166534;
+  color:#0b0b0bbe;
 }
 
 .alert-danger {
@@ -100,7 +101,7 @@ p.text-center {
 .col-sm-3 p {
   font-size: 1.8rem;
   font-weight: 800;
-  color: #2563eb;
+  color:#2563eb;
   margin-bottom: 0;
 }
 .app-hero {
@@ -201,12 +202,12 @@ p.text-center {
   font-weight: 600;
 }
 .currency-select option {
-  font-size: 0.85rem;
+  font-size: 1rem;
 }
 .hero-logo {
   width: 110px;
   height: 110px;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 100%;
   border: 3px solid rgba(255, 255, 255, 0.7);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
